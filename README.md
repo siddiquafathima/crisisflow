@@ -176,6 +176,14 @@ Hard → ✅ Success
 Overload → ✅ Correct waiting handling
 Average Score: 0.8750
 
+## 📸 Screenshots
+
+### Frontend Dashboard
+![Frontend Dashboard](images/frontend-dashboard.png)
+
+### Backend API Docs
+![Backend API Docs](images/backend-docs.png)
+
 
 🧾 Submission Notes
 inference.py follows OpenAI-compatible API
