@@ -1,0 +1,44 @@
+name: crisisflow-env
+description: AI-powered emergency response simulation environment with priority-based dispatch, overload handling, and smart team allocation.
+
+version: "1.0"
+
+entrypoint: backend.env:CrisisFlowEnv
+
+tasks:
+  - id: task_easy_apartment_fire
+    description: Handle a simple apartment fire with correct team assignment.
+
+  - id: task_medium_multi_incident_dispatch
+    description: Manage multiple incidents with prioritization and correct dispatch.
+
+  - id: task_hard_cascading_gas_leak
+    description: Handle cascading incidents including gas leaks and escalation scenarios.
+
+  - id: task_busy_city_overload
+    description: Handle city-wide overload where incidents must wait due to limited resources.
+
+observation_space:
+  type: object
+  properties:
+    incidents:
+      type: array
+      description: List of active incidents
+    teams:
+      type: array
+      description: List of response teams and their status
+
+action_space:
+  type: object
+  properties:
+    action_type:
+      type: string
+      description: Type of action
+    incident_id:
+      type: string
+    team_id:
+      type: string
+    escalation_type:
+      type: string
+
+reward_range: [0.0, 1.0]
