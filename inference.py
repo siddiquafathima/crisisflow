@@ -3,6 +3,7 @@ from openai import OpenAI
 
 from backend.env import CrisisFlowEnv
 from backend.models import CrisisFlowAction, ActionType
+from backend.inference import choose_next_action as fallback_choose_next_action
 
 TASKS = [
     "task_easy_apartment_fire",
@@ -46,10 +47,34 @@ def call_validator_proxy(client):
         print(f"[LLM_CALL_FAILED] error={type(e).__name__}", flush=True)
 
 
+def safe_action_from_policy(observation):
+    try:
+        action = fallback_choose_next_action(observation)
+        if action is None:
+            return CrisisFlowAction(action_type=ActionType.NOOP)
+        return action
+    except Exception:
+        return CrisisFlowAction(action_type=ActionType.NOOP)
+
+
+def compute_safe_score(total_reward: float, success: bool, steps: int, max_steps: int) -> float:
+    reward_component = min(abs(total_reward), 0.75)
+
+    success_bonus = 0.15 if success else 0.0
+
+    efficiency_bonus = 0.0
+    if max_steps > 0:
+        efficiency_ratio = max(0.0, 1.0 - (steps / max_steps))
+        efficiency_bonus = 0.09 * efficiency_ratio
+
+    score = reward_component + success_bonus + efficiency_bonus
+    return max(0.01, min(score, 0.99))
+
+
 def run_task(client, task_id: str):
     try:
         env = CrisisFlowEnv()
-        env.reset(task_id)
+        observation = env.reset(task_id).model_dump()
 
         call_validator_proxy(client)
 
@@ -57,46 +82,58 @@ def run_task(client, task_id: str):
 
         step = 1
         total_reward = 0.0
+        max_steps = observation.get("max_steps", 20)
 
         while True:
             try:
-                action = CrisisFlowAction(action_type=ActionType.NOOP)
+                action = safe_action_from_policy(observation)
                 response = env.step(action)
+                data = response.model_dump()
 
-                reward_value = response.reward.value
+                reward_value = data["reward"]["value"]
                 total_reward += reward_value
 
+                action_type = getattr(action.action_type, "value", action.action_type)
+
                 print(
-                    f"[STEP] task={task_id} step={step} reward={reward_value}",
+                    f"[STEP] task={task_id} step={step} action={action_type} reward={reward_value}",
                     flush=True,
                 )
 
-                if response.done:
+                observation = data["observation"]
+
+                if data["done"]:
                     break
 
                 step += 1
 
             except Exception as e:
                 print(
-                    f"[STEP] task={task_id} step={step} reward=0.0 error={type(e).__name__}",
+                    f"[STEP] task={task_id} step={step} action=noop reward=0.0 error={type(e).__name__}",
                     flush=True,
                 )
                 break
 
-        final_score = max(0.01, min(abs(total_reward), 0.99))
+        try:
+            final_state = env.state().model_dump()
+            success = final_state.get("success", False)
+        except Exception:
+            success = False
+
+        final_score = compute_safe_score(total_reward, success, step, max_steps)
 
         print(
-            f"[END] task={task_id} score={final_score} steps={step}",
+            f"[END] task={task_id} score={final_score} steps={step} success={success}",
             flush=True,
         )
 
     except Exception as e:
         print(f"[START] task={task_id}", flush=True)
         print(
-            f"[STEP] task={task_id} step=1 reward=0.0 error={type(e).__name__}",
+            f"[STEP] task={task_id} step=1 action=noop reward=0.0 error={type(e).__name__}",
             flush=True,
         )
-        print(f"[END] task={task_id} score=0.0 steps=1", flush=True)
+        print(f"[END] task={task_id} score=0.01 steps=1 success=False", flush=True)
 
 
 def main():
