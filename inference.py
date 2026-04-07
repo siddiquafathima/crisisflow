@@ -1,4 +1,4 @@
-import os
+﻿import os
 from openai import OpenAI
 
 from backend.env import CrisisFlowEnv
@@ -15,8 +15,8 @@ TASKS = [
 def make_client():
     try:
         return OpenAI(
-            base_url=os.environ["API_BASE_URL"],
-            api_key=os.environ["API_KEY"],
+            base_url=os.environ.get("API_BASE_URL", ""),
+            api_key=os.environ.get("API_KEY", ""),
         )
     except Exception as e:
         print(f"[LLM_CLIENT_FAILED] error={type(e).__name__}", flush=True)
@@ -28,9 +28,9 @@ def call_validator_proxy(client):
         print("[LLM_CALL_FAILED] error=NoClient", flush=True)
         return
 
-    try:
-        model_name = os.environ.get("MODEL_NAME", "gpt-4o-mini")
+    model_name = os.environ.get("MODEL_NAME", "gpt-4o-mini")
 
+    try:
         response = client.chat.completions.create(
             model=model_name,
             messages=[
@@ -40,10 +40,8 @@ def call_validator_proxy(client):
             max_tokens=5,
             temperature=0.0,
         )
-
         _ = response.choices[0].message.content
         print("[LLM_CALL_SUCCESS]", flush=True)
-
     except Exception as e:
         print(f"[LLM_CALL_FAILED] error={type(e).__name__}", flush=True)
 
@@ -94,20 +92,22 @@ def run_task(client, task_id: str):
 
     except Exception as e:
         print(f"[START] task={task_id}", flush=True)
-        print(f"[STEP] task={task_id} step=1 reward=0.0 error={type(e).__name__}", flush=True)
+        print(
+            f"[STEP] task={task_id} step=1 reward=0.0 error={type(e).__name__}",
+            flush=True,
+        )
         print(f"[END] task={task_id} score=0.0 steps=1", flush=True)
 
 
 def main():
-    try:
-        client = make_client()
+    client = make_client()
 
-        for task in TASKS:
-            run_task(client, task)
-
-    except Exception as e:
-        print(f"[FATAL] error={type(e).__name__}", flush=True)
+    for task in TASKS:
+        run_task(client, task)
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception as e:
+        print(f"[FATAL] error={type(e).__name__}", flush=True)
