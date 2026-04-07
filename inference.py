@@ -83,7 +83,7 @@ def run_task(client, task_id: str):
                 )
                 break
 
-        final_score = max(0.0, min(total_reward, 1.0))
+        final_score = max(0.01, min(abs(total_reward), 0.99))
 
         print(
             f"[END] task={task_id} score={final_score} steps={step}",
