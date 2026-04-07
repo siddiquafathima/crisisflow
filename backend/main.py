@@ -25,7 +25,7 @@ env = CrisisFlowEnv()
 
 
 class ResetRequest(BaseModel):
-    task_id: str
+    task_id: str | None = None
 
 
 class SimulateRequest(BaseModel):
@@ -53,9 +53,15 @@ def get_tasks():
 
 
 @app.post("/reset")
-def reset_environment(request: ResetRequest):
+def reset_environment(request: ResetRequest | None = None):
     try:
-        observation = env.reset(request.task_id)
+        task_id = request.task_id if request else None
+
+        if task_id:
+            observation = env.reset(task_id)
+        else:
+            observation = env.reset()
+
         return observation.model_dump()
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
