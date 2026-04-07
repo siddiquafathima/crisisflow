@@ -19,26 +19,30 @@ def make_client() -> OpenAI:
     )
 
 
-def call_validator_proxy(client):
+def call_validator_proxy(client: OpenAI) -> None:
     model_name = os.environ.get("MODEL_NAME", "gpt-4o-mini")
 
-    response = client.chat.completions.create(
-        model=model_name,
-        messages=[
-            {"role": "user", "content": "Say OK"}
-        ],
-        max_tokens=5,
-    )
-
-    print("[LLM_CALL_SUCCESS]", flush=True)
-
+    try:
+        response = client.chat.completions.create(
+            model=model_name,
+            messages=[
+                {"role": "system", "content": "You are a helpful assistant."},
+                {"role": "user", "content": "Reply with exactly the word: ok"},
+            ],
+            max_tokens=5,
+            temperature=0.0,
+        )
+        _ = response.choices[0].message.content
+        print("[LLM_CALL_SUCCESS]", flush=True)
+    except Exception as e:
+        print(f"[LLM_CALL_FAILED] error={type(e)._name_}", flush=True)
 
 
 def run_task(client: OpenAI, task_id: str) -> None:
     env = CrisisFlowEnv()
     env.reset(task_id)
 
-    # Required real proxy call
+    # make a real proxy call, but never crash if it fails
     call_validator_proxy(client)
 
     print(f"[START] task={task_id}", flush=True)
