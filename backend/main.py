@@ -55,16 +55,18 @@ def get_tasks():
 @app.post("/reset")
 def reset_environment(request: ResetRequest | None = None):
     try:
-        task_id = request.task_id if request else None
+        default_task_id = next(iter(TASKS.keys()))
 
-        if task_id:
-            observation = env.reset(task_id)
-        else:
-            observation = env.reset()
+        task_id = default_task_id
+        if request and request.task_id and request.task_id in TASKS:
+            task_id = request.task_id
 
+        observation = env.reset(task_id)
         return observation.model_dump()
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @app.post("/step")
@@ -74,6 +76,8 @@ def step_environment(action: CrisisFlowAction):
         return response.model_dump()
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @app.get("/state")
@@ -82,6 +86,8 @@ def get_state():
         return env.state().model_dump()
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @app.post("/simulate")
@@ -90,3 +96,5 @@ def simulate_environment(request: SimulateRequest):
         return simulate_task(request.task_id)
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
