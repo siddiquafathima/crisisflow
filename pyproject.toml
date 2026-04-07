@@ -1,0 +1,11 @@
+[project]
+name = "crisisflow"
+version = "0.1.0"
+description = "AI-powered emergency response simulation environment built for OpenEnv."
+readme = "README.md"
+requires-python = ">=3.10"
+
+[tool.openenv]
+environment = "backend.env:CrisisFlowEnv"
+inference_script = "inference.py"
+config = "openenv.yaml"
