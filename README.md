@@ -3,7 +3,7 @@
 > 🚀 Phase 2 Validated | AI Decision System | Real-Time Crisis Simulation
 
 CrisisFlow is an AI-powered emergency response simulation platform that intelligently prioritizes incidents, assigns response teams, and manages real-time crisis situations with explainable decision-making.
-Designed specifically to align with OpenEnv evaluation and automated validation pipelines.
+Designed specifically to align with OpenEnv evaluation and automated validation pipelines. 
 
 ---
 
