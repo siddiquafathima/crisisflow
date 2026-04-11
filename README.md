@@ -3,8 +3,10 @@
 > 🚀 Phase 2 Validated | AI Decision System | Real-Time Crisis Simulation
 
 CrisisFlow is an AI-powered emergency response simulation platform that intelligently prioritizes incidents, assigns response teams, and manages real-time crisis situations with explainable decision-making.
+Designed specifically to align with OpenEnv evaluation and automated validation pipelines.
 
 ---
+
 
 ## 🚀 Resubmission Notes
 
@@ -21,11 +23,10 @@ In this resubmission, I have significantly improved the robustness, structure, a
 
 ## 🌍 Impact
 
-CrisisFlow demonstrates how AI can assist in real-time emergency response by improving decision-making speed, optimizing resource allocation, and enabling scalable crisis management for smart cities.
-
+CrisisFlow demonstrates how AI can assist in real-time emergency response by improving decision speed, optimizing resource allocation, and enabling scalable crisis management for smart cities and disaster response systems.
 ---
 
-## 🧠 Key Features
+## ⚡ Core Capabilities
 
 - 🚨 Priority-based incident handling (Low → Critical)
 - 🤖 AI-driven decision engine with step-by-step reasoning
@@ -99,13 +100,13 @@ FastAPI automatically generates interactive API docs.
 
 ---
 
-## 💡 How It Works
+## 🎬 Demo Flow
 
-1. Incident is received (type, severity, affected people)
-2. AI inspects and verifies the situation
-3. Appropriate response teams are assigned
-4. System dynamically adapts based on resource availability
-5. Each step is logged with reward-based scoring
+1. Incident is received  
+2. AI inspects and verifies  
+3. Assigns appropriate response teams  
+4. Adapts dynamically based on system state  
+5. Produces structured logs for evaluation
 
 ---
 
@@ -129,13 +130,13 @@ The system adapts in real-time:
 
 ---
 
-## 🎯 Why This Project Stands Out
+## 🏆 Why CrisisFlow Stands Out
 
-- ✅ **Real-world crisis simulation**  
-- ✅ **Explainable AI** (transparent decision-making)  
-- ✅ **Full-stack system** (Frontend + Backend)  
-- ✅ **Robust inference pipeline** (handles API failures safely)  
-- ✅ **Multi-incident intelligence** (handles complex scenarios)  
+- Simulates real-world emergency response workflows
+- Handles multiple concurrent incidents intelligently
+- Provides explainable AI decisions (step-by-step logs)
+- Fully compatible with OpenEnv evaluation framework
+- Robust to failures with safe fallback mechanisms  
 
 ---
 
