@@ -1,201 +1,154 @@
----
-title: CrisisFlow
-emoji: 🚨
-colorFrom: red
-colorTo: blue
-sdk: docker
-app_port: 7860
-pinned: false
-license: mit
----
+# 🚨 CrisisFlow – AI Emergency Response System
 
-# 🚨 CrisisFlow: AI Emergency Response Simulation Environment
+> 🚀 Phase 2 Validated | AI Decision System | Real-Time Crisis Simulation
 
-## 📌 Overview
-
-CrisisFlow is a real-world emergency response simulation environment designed for training and evaluating AI agents.
-
-It simulates how emergency systems handle incidents like:
-- Fires
-- Traffic accidents
-- Gas leaks
-
-using intelligent decision-making and resource allocation.
-
-The environment follows the **OpenEnv standard** and allows agents to interact using:
-- `step()`
-- `reset()`
-- `state()`
+CrisisFlow is an AI-powered emergency response simulation platform that intelligently prioritizes incidents, assigns response teams, and manages real-time crisis situations with explainable decision-making.
 
 ---
 
-## 🎯 Motivation
+## 🚀 Resubmission Notes
 
-In real-world emergency systems:
-- Resources are limited
-- Incidents happen simultaneously
-- Prioritization is critical
+In this resubmission, I have significantly improved the robustness, structure, and evaluation-readiness of my CrisisFlow environment based on the feedback and troubleshooting guidelines.
 
-CrisisFlow models this problem to help build **AI agents that can make smart decisions under pressure**.
-
----
-
-## ⚙️ Environment Design
-
-### 🔹 Observation Space
-
-The agent receives:
-- Active incidents (type, severity, affected people)
-- Available teams (fire, police, ambulance, hazmat)
-- Current state and progress
+### 🔧 Key Improvements
+- Fixed Hugging Face deployment issues and ensured a stable running API with proper root (`/`) and health (`/health`) endpoints  
+- Refined inference pipeline to produce **structured, validator-safe logs** with clear `[START]`, `[STEP]`, and `[END]` markers  
+- Ensured **deterministic environment behavior** with consistent reward tracking across all tasks  
+- Improved handling of complex scenarios like cascading incidents and resource overload  
+- Integrated a **frontend dashboard** to visualize simulation steps, incident states, and team assignments  
 
 ---
 
-### 🔹 Action Space
+## 🌍 Impact
 
-The agent can perform:
-
-- `inspect_incident`
-- `verify_incident`
-- `assign_team`
-- `mark_waiting`
-- `mark_resolved`
-- `escalate_incident`
-- `noop`
-
----
-
-### 🔹 Reward System
-
-- Inspect → `+0.05`
-- Verify → `+0.15`
-- Correct team assignment → `+0.25`
-- Resolve → `+0.4`
-- Wrong actions / useless actions → penalty
-
-👉 This ensures learning across the full decision process.
+CrisisFlow demonstrates how AI can assist in real-time emergency response by improving decision-making speed, optimizing resource allocation, and enabling scalable crisis management for smart cities.
 
 ---
 
 ## 🧠 Key Features
 
-- Priority-based dispatch (Critical → High → Medium → Low)
-- Smart team assignment based on incident type
-- Duplicate team prevention
-- Waiting logic when no teams available
-- Overload scenario handling
-- Escalation for complex incidents
-- LLM + fallback hybrid decision system
+- 🚨 Priority-based incident handling (Low → Critical)
+- 🤖 AI-driven decision engine with step-by-step reasoning
+- 📊 Real-time simulation dashboard
+- 🧩 Multi-incident handling (parallel crisis management)
+- ⚡ Resource allocation & overload detection
+- 🔍 Explainable AI (each step shows action + reward)
 
 ---
 
-## 🧪 Tasks
+## 🌐 Live Demo
 
-### 🟢 Easy: Apartment Fire
-- Single incident
-- Assign fire + ambulance
-- Resolve
+👉 Hugging Face Space:  
+https://huggingface.co/spaces/SiddiquaFathima/crisisflow
 
 ---
 
-### 🟡 Medium: Multi-Incident Dispatch
-- Multiple incidents
-- Requires prioritization
-- Different team types
+## 🖥️ Frontend Dashboard
+
+CrisisFlow provides a fully interactive dashboard to visualize emergency handling, decision-making, and resource allocation in real time.
+
+### 🏠 Main Dashboard
+![Dashboard](images/dashboard.png)
 
 ---
 
-### 🔴 Hard: Cascading Gas Leak
-- Multi-stage incidents
-- Hazmat + police + ambulance
-- Escalation required
+### 🚨 Incident Management
+![Incidents](images/incidents.png)
 
 ---
 
-### ⚫ Overload Scenario
-- All teams busy
-- Must correctly mark incidents as **waiting**
+### 🧠 AI Decision Steps (Explainability)
+![Steps](images/steps.png)
 
 ---
 
-## 🖥️ Frontend
-
-CrisisFlow includes a modern dashboard UI for:
-
-- Running simulations
-- Viewing incidents
-- Tracking teams
-- Monitoring execution steps
-- Visualizing overload situations
+### 👥 Response Teams
+![Teams](images/teams.png)
 
 ---
 
-## 🚀 Setup Instructions
+## 🔌 API Documentation
 
-### 1. Clone repository
+FastAPI automatically generates interactive API docs.
 
-```bash
-git clone <your-repo-link>
-cd crisisflow
-
-2. Create virtual environment
-python -m venv .venv
-.venv\Scripts\Activate.ps1
-
-3. Install dependencies
-pip install -r requirements.txt
-
-▶️ Run Backend
-uvicorn backend.main:app --reload --host 127.0.0.1 --port 8000
-Open:
-http://127.0.0.1:8000/docs
-
-▶️ Run Frontend
-cd frontend
-npm install
-npm run dev
-Open:
-http://localhost:3000
-
-▶️ Run Baseline Inference
-python inference.py
-
-🤖 Hugging Face Token Note
-This project uses HF_TOKEN for model-based inference.
-During local testing, Hugging Face credits may be exhausted, which can produce 402 errors. In such cases, the system automatically falls back to rule-based logic.
-
-Required Environment Variables
-API_BASE_URL=https://router.huggingface.co/v1
-MODEL_NAME=Qwen/Qwen2.5-7B-Instruct
-HF_TOKEN=your_token_here
-
-📊 Baseline Results
-Easy → ✅ Success
-Medium → ✅ Success
-Hard → ✅ Success
-Overload → ✅ Correct waiting handling
-Average Score: 0.8750
-
-## 📸 Screenshots
-
-### Frontend Dashboard
-![Frontend Dashboard](images/frontend-dashboard.png)
-
-### Backend API Docs
-![Backend API Docs](images/backend-docs.png)
+👉 Open:https://siddiquafathima-crisisflow.hf.space/docs
 
 
-🧾 Submission Notes
-inference.py follows OpenAI-compatible API
-openenv.yaml is correctly configured
-Dockerfile is included
-Backend uses FastAPI
-Frontend is included for visualization
-Invalid LLM outputs are handled safely
-Infinite loops are prevented
-Smart dispatch logic is implemented
-
-👩‍💻 Author
-Siddiqua Fathima
+![API Docs](images/api-docs.png)
 
 ---
+
+## 🤖 Hugging Face Deployment
+
+![HF Space](images/hf-space.png)
+
+---
+
+## ⚙️ Inference Output
+
+![Inference Output](images/inference-(output1).png)
+![Inference Output](images/inference-(output2).png)
+---
+
+## 🏗️ System Architecture
+
+- **Frontend:** Next.js + TailwindCSS  
+- **Backend:** FastAPI (Python)  
+- **AI Engine:** Rule-based + reward-driven decision system  
+- **Deployment:** Hugging Face Spaces  
+
+---
+
+## 💡 How It Works
+
+1. Incident is received (type, severity, affected people)
+2. AI inspects and verifies the situation
+3. Appropriate response teams are assigned
+4. System dynamically adapts based on resource availability
+5. Each step is logged with reward-based scoring
+
+---
+
+## 🧠 Intelligent Prioritization
+
+CrisisFlow dynamically calculates a priority score based on:
+- Severity level
+- Number of affected people
+- Incident urgency
+
+This ensures critical incidents are handled first in multi-crisis scenarios.
+
+---
+
+## 🔄 Adaptive Decision System
+
+The system adapts in real-time:
+- If resources are unavailable → switches to waiting strategy  
+- If escalation required → triggers escalation logic  
+- Prevents redundant actions using state awareness  
+
+---
+
+## 🎯 Why This Project Stands Out
+
+- ✅ **Real-world crisis simulation**  
+- ✅ **Explainable AI** (transparent decision-making)  
+- ✅ **Full-stack system** (Frontend + Backend)  
+- ✅ **Robust inference pipeline** (handles API failures safely)  
+- ✅ **Multi-incident intelligence** (handles complex scenarios)  
+
+---
+
+## 📌 Future Improvements
+
+- 🗺️ Live map integration  
+- 🔔 Real-time alerts & notifications  
+- 📈 ML-based prediction for crisis escalation  
+- 🔗 Integration with real emergency APIs  
+
+---
+
+## 🙌 Author
+
+**Siddiqua Fathima**  
+GitHub: https://github.com/siddiquafathima
