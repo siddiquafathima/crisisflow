@@ -10,6 +10,10 @@ from backend.inference import simulate_task
 
 app = FastAPI(title="CrisisFlow API")
 
+@app.get("/")
+def root():
+    return {"message": "CrisisFlow API is running"}
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
