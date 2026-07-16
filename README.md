@@ -248,19 +248,24 @@ This workflow enables transparent and reproducible emergency decision-making.
 
 ## FastAPI Documentation
 
-![API Docs](images/api_docs.png)
+![API Docs](images/api-docs.png)
 
 ---
 
 ## AI Inference Output
 
-![Inference](images/inference_output.png)
+![Inference](images/incidents.png)
+
+---
+## Steps Taken Outpur
+
+![Images](images/steps.png)
 
 ---
 
 ## Hugging Face Deployment
 
-![Deployment](images/huggingface.png)
+![Deployment](images/hf-space.png)
 
 ---
 
