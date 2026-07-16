@@ -1,155 +1,379 @@
-# 🚨 CrisisFlow – AI Emergency Response System
+# 🚨 CrisisFlow – AI-Powered Emergency Response Management System
 
-> 🚀 Phase 2 Validated | AI Decision System | Real-Time Crisis Simulation
+![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)
+![FastAPI](https://img.shields.io/badge/FastAPI-Backend-green.svg)
+![Next.js](https://img.shields.io/badge/Next.js-Frontend-black.svg)
+![React](https://img.shields.io/badge/React-18-blue.svg)
+![License](https://img.shields.io/badge/License-MIT-orange.svg)
 
-CrisisFlow is an AI-powered emergency response simulation platform that intelligently prioritizes incidents, assigns response teams, and manages real-time crisis situations with explainable decision-making.
-Designed specifically to align with OpenEnv evaluation and automated validation pipelines. 
+CrisisFlow is an AI-powered emergency response management system that simulates disaster response scenarios by intelligently prioritizing incidents, allocating emergency teams, and tracking response workflows.
 
----
-
-
-## 🚀 Resubmission Notes
-
-In this resubmission, I have significantly improved the robustness, structure, and evaluation-readiness of my CrisisFlow environment based on the feedback and troubleshooting guidelines.
-
-### 🔧 Key Improvements
-- Fixed Hugging Face deployment issues and ensured a stable running API with proper root (`/`) and health (`/health`) endpoints  
-- Refined inference pipeline to produce **structured, validator-safe logs** with clear `[START]`, `[STEP]`, and `[END]` markers  
-- Ensured **deterministic environment behavior** with consistent reward tracking across all tasks  
-- Improved handling of complex scenarios like cascading incidents and resource overload  
-- Integrated a **frontend dashboard** to visualize simulation steps, incident states, and team assignments  
+The project demonstrates AI-assisted decision making, backend API development, frontend visualization, structured inference pipelines, and real-time emergency response simulation.
 
 ---
 
-## 🌍 Impact
+# 🚀 Live Demo
 
-CrisisFlow demonstrates how AI can assist in real-time emergency response by improving decision speed, optimizing resource allocation, and enabling scalable crisis management for smart cities and disaster response systems.
----
-
-## ⚡ Core Capabilities
-
-- 🚨 Priority-based incident handling (Low → Critical)
-- 🤖 AI-driven decision engine with step-by-step reasoning
-- 📊 Real-time simulation dashboard
-- 🧩 Multi-incident handling (parallel crisis management)
-- ⚡ Resource allocation & overload detection
-- 🔍 Explainable AI (each step shows action + reward)
-
----
-
-## 🌐 Live Demo
-
-👉 Hugging Face Space:  
+### 🌐 Hugging Face Space
 https://huggingface.co/spaces/SiddiquaFathima/crisisflow
 
+### 💻 GitHub Repository
+https://github.com/siddiquafathima/crisisflow
+
 ---
 
-## 🖥️ Frontend Dashboard
+# 📌 Project Overview
 
-CrisisFlow provides a fully interactive dashboard to visualize emergency handling, decision-making, and resource allocation in real time.
+Emergency response requires quick, accurate, and explainable decision-making. CrisisFlow provides an AI-assisted environment that helps emergency coordinators:
 
-### 🏠 Main Dashboard
+- Prioritize emergency incidents
+- Allocate available response teams
+- Track incident status
+- Simulate disaster management workflows
+- Visualize incident handling in real time
+
+The project combines AI decision logic with a modern web interface and REST API.
+
+---
+
+# 🎯 Key Features
+
+- 🚨 AI-assisted emergency response workflow
+- 📋 Incident management dashboard
+- 🚑 Intelligent emergency team allocation
+- ⚡ Priority-based incident handling
+- 📊 Explainable inference logs
+- 🔄 Multi-incident simulation
+- 🌐 REST API powered by FastAPI
+- 💻 Interactive frontend using Next.js
+- 📈 Real-time response tracking
+- 🧩 Modular and extensible architecture
+
+---
+
+# 🏗️ System Architecture
+
+```
+                User
+                  │
+                  ▼
+        Next.js Frontend (React)
+                  │
+                  ▼
+          FastAPI REST API
+                  │
+                  ▼
+          AI Inference Engine
+                  │
+                  ▼
+     Incident Decision Logic
+                  │
+                  ▼
+      Emergency Response Simulation
+```
+
+---
+
+# 🛠️ Tech Stack
+
+## Programming Languages
+
+- Python
+- JavaScript
+- HTML
+- CSS
+
+## Backend
+
+- FastAPI
+- Uvicorn
+
+## Frontend
+
+- Next.js
+- React
+- Tailwind CSS
+
+## AI / ML
+
+- OpenAI Compatible APIs
+- Prompt-based Decision Workflow
+- Rule-based Inference Engine
+
+## Deployment
+
+- Hugging Face Spaces
+- GitHub
+
+## Tools
+
+- Git
+- GitHub
+- VS Code
+
+---
+
+# 📂 Project Structure
+
+```
+crisisflow/
+│
+├── backend/
+│   ├── main.py
+│   ├── routes/
+│   ├── models/
+│   └── utils/
+│
+├── frontend/
+│   ├── app/
+│   ├── components/
+│   └── public/
+│
+├── inference.py
+├── requirements.txt
+├── README.md
+└── images/
+```
+
+---
+
+# ⚙️ Installation
+
+## Clone Repository
+
+```bash
+git clone https://github.com/siddiquafathima/crisisflow.git
+
+cd crisisflow
+```
+
+---
+
+## Create Virtual Environment
+
+```bash
+python -m venv .venv
+```
+
+Windows
+
+```bash
+.venv\Scripts\activate
+```
+
+Linux / Mac
+
+```bash
+source .venv/bin/activate
+```
+
+---
+
+## Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## Run Backend
+
+```bash
+uvicorn backend.main:app --reload
+```
+
+---
+
+## Run Frontend
+
+```bash
+cd frontend
+
+npm install
+
+npm run dev
+```
+
+---
+
+## Run Inference
+
+```bash
+python inference.py
+```
+
+---
+
+# 📡 API Documentation
+
+After starting the backend, open:
+
+```
+http://127.0.0.1:8000/docs
+```
+
+FastAPI automatically generates interactive Swagger documentation for testing API endpoints.
+
+---
+
+# 🧠 AI Inference Workflow
+
+The inference engine follows a structured emergency response workflow:
+
+1. Inspect Incident
+2. Verify Incident
+3. Assign Response Team
+4. Escalate Critical Emergencies (if required)
+5. Mark Incident Resolved
+6. Generate Explainable Logs
+
+This workflow enables transparent and reproducible emergency decision-making.
+
+---
+
+# 📸 Project Screenshots
+
+## Dashboard
+
 ![Dashboard](images/dashboard.png)
 
 ---
 
-### 🚨 Incident Management
-![Incidents](images/incidents.png)
+## Incident Management
+
+![Incident Management](images/frontend.png)
 
 ---
 
-### 🧠 AI Decision Steps (Explainability)
-![Steps](images/steps.png)
+## FastAPI Documentation
+
+![API Docs](images/api_docs.png)
 
 ---
 
-### 👥 Response Teams
-![Teams](images/teams.png)
+## AI Inference Output
+
+![Inference](images/inference_output.png)
 
 ---
 
-## 🔌 API Documentation
+## Hugging Face Deployment
 
-FastAPI automatically generates interactive API docs.
-
-👉 Open:https://siddiquafathima-crisisflow.hf.space/docs
-
-
-![API Docs](images/api-docs.png)
+![Deployment](images/huggingface.png)
 
 ---
 
-## 🤖 Hugging Face Deployment
+# 📈 Example Inference Output
 
-![HF Space](images/hf-space.png)
+```
+[START] task=task_easy_apartment_fire
 
----
+↓
 
-## ⚙️ Inference Output
+Inspect Incident
 
-![Inference Output](images/inference-(output1).png)
-![Inference Output](images/inference-(output2).png)
----
+↓
 
-## 🏗️ System Architecture
+Verify Incident
 
-- **Frontend:** Next.js + TailwindCSS  
-- **Backend:** FastAPI (Python)  
-- **AI Engine:** Rule-based + reward-driven decision system  
-- **Deployment:** Hugging Face Spaces  
+↓
 
----
+Assign Team
 
-## 🎬 Demo Flow
+↓
 
-1. Incident is received  
-2. AI inspects and verifies  
-3. Assigns appropriate response teams  
-4. Adapts dynamically based on system state  
-5. Produces structured logs for evaluation
+Resolve Incident
 
----
+↓
 
-## 🧠 Intelligent Prioritization
+Success
+```
 
-CrisisFlow dynamically calculates a priority score based on:
-- Severity level
-- Number of affected people
-- Incident urgency
-
-This ensures critical incidents are handled first in multi-crisis scenarios.
+The inference engine logs every decision step, making the workflow transparent and easy to analyze.
 
 ---
 
-## 🔄 Adaptive Decision System
+# 👩‍💻 My Contributions
 
-The system adapts in real-time:
-- If resources are unavailable → switches to waiting strategy  
-- If escalation required → triggers escalation logic  
-- Prevents redundant actions using state awareness  
+This project was independently designed and developed by me.
 
----
+Key contributions include:
 
-## 🏆 Why CrisisFlow Stands Out
-
-- Simulates real-world emergency response workflows
-- Handles multiple concurrent incidents intelligently
-- Provides explainable AI decisions (step-by-step logs)
-- Fully compatible with OpenEnv evaluation framework
-- Robust to failures with safe fallback mechanisms  
+- Designed the overall project architecture
+- Developed the FastAPI backend
+- Built the AI inference workflow
+- Implemented emergency response decision logic
+- Developed the Next.js frontend dashboard
+- Integrated backend APIs with the frontend
+- Deployed the project on Hugging Face Spaces
+- Created comprehensive project documentation
 
 ---
 
-## 📌 Future Improvements
+# 🎯 Learning Outcomes
 
-- 🗺️ Live map integration  
-- 🔔 Real-time alerts & notifications  
-- 📈 ML-based prediction for crisis escalation  
-- 🔗 Integration with real emergency APIs  
+Through this project, I gained practical experience in:
+
+- Full Stack Development
+- FastAPI
+- REST API Design
+- AI Workflow Design
+- Frontend Integration
+- Deployment
+- Git & GitHub
+- Software Architecture
+- Explainable AI Workflows
 
 ---
 
-## 🙌 Author
+# 🚀 Future Enhancements
 
-**Siddiqua Fathima**  
-GitHub: https://github.com/siddiquafathima
+Potential future improvements include:
+
+- Reinforcement Learning for dispatch optimization
+- Real-time GIS mapping
+- Multi-agent emergency coordination
+- Live notification system
+- Voice-assisted emergency reporting
+- Analytics dashboard
+- Historical incident analysis
+- AI-powered risk prediction
+
+---
+
+# 🤝 Contributing
+
+Contributions, suggestions, and improvements are welcome.
+
+1. Fork the repository
+2. Create a new branch
+3. Commit your changes
+4. Push the branch
+5. Open a Pull Request
+
+---
+
+# 📄 License
+
+This project is released under the MIT License.
+
+---
+
+# 👩‍💻 Author
+
+**Siddiqua Fathima**
+
+Master of Computer Applications (MCA)
+
+AI | Machine Learning | Computer Vision | Full Stack Development
+
+GitHub:
+https://github.com/siddiquafathima
+
+Hugging Face:
+https://huggingface.co/SiddiquaFathima
+
+---
+
+⭐ If you found this project useful, consider giving it a Star on GitHub.
