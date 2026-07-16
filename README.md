@@ -240,12 +240,6 @@ This workflow enables transparent and reproducible emergency decision-making.
 
 ---
 
-## Incident Management
-
-![Incident Management](images/frontend.png)
-
----
-
 ## FastAPI Documentation
 
 ![API Docs](images/api-docs.png)
